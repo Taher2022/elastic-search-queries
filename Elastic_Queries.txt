@@ -1,0 +1,460 @@
+GET device_report_data_live_4/_search
+{
+  "query": {
+    "terms": {
+      "_id": [
+        "05926343-390c-432b-a456-c80c741beb72",
+        "fae2fa38-0099-4bac-84e8-ceb549146cf6",
+        "2eaa3920-0736-424f-8ec7-2ed2b68a2882",
+        "20ad00ad-44f9-4eeb-a9fd-caad106a674b",
+        "366d7d28-2bb5-41de-be63-3d256ec73687",
+        "20ad00ad-44f9-4eeb-a9fd-caad106a674b",
+        "01f5e2dc-aafa-41c8-b289-ddcc55e583a1",
+        "b14b4f7a-4495-4a38-b3c5-f7345b25155d",
+        "08216327-3450-4525-9862-47ee740c82df",
+        "2dab629a-d69a-42ca-9765-e9792fddcda1",
+        "4b20d2ef-3065-441a-9817-b3beb575107e",
+        "458c45f1-c198-421f-8594-7c013b8e73f5",
+        "0243d1f4-868b-437d-ba6b-085e907109f5",
+        "1397ed0c-3fd1-40b9-8d4b-551f5efd27b0",
+        "f7dbe2d2-1311-41a1-addb-d61387d0213c",
+        "dc6f07bf-162a-4ec6-8793-0afc63dc92c1",
+        "95943909-044b-4569-8ac0-bfeb9489de6d",
+        "1a573622-c8ab-418c-b705-5ef9e3400885",
+        "db1c3086-bafc-48db-bf8c-3eef6a8a8635",
+        "51b739bd-1949-49df-b31e-fe6f95e7b4d2",
+        "86b24d77-705e-4c90-ae78-09aa664e220b",
+        "f599581f-a812-4837-8c71-aef187477265",
+        "5db01277-966e-409d-87d3-53c070849606",
+        "f5bec319-e2e0-4aba-8119-6758f1804176",
+        "5b1cae57-2aae-424d-9394-5365706f40ca",
+        "01e11c40-c1bb-40c5-bbea-8c108b2cb316"
+      ],
+      "boost": 1
+    }
+  }
+}
+
+GET device_report_data_live_4/_search
+{
+  "query": {
+    "match": {
+      "general.rawreport":"7d01086696106204399303112c1f164ce61c620117402c1f1680075213cb04f3ba2939000000510000002358e21009010008000800000ff4f0010400730073e62e3301687474703a2f2f696d616765732e7068696c6c6970732d636f6e6e6563742e6e65742f5247394465664f3151362e6a706700"
+    }
+  }
+}
+GET device_report_data_live_5/_search
+
+GET device_report_data_live_5/_search
+{
+  "query": {
+    "terms": {
+      "_id": [
+        "80da8cd6-4546-40af-b1ba-6b894e81a153",
+        "80da8cd6-4546-40af-b1ba-6b894e81a153",
+        "d1bacaf3-98c2-49e4-bcdc-830016b49d96"
+      ],
+      "boost": 1
+    }
+  }
+}
+
+
+
+GET device_report_data_live_1/_mapping
+
+GET device_report_data_live_*/_search
+{
+  "query": {
+    "terms": {
+      "_id": [
+        "582da598-58e4-4f75-8ac8-ff6b21682542"
+      ],
+      "boost": 1
+    }
+  }
+}
+
+GET device_report_data_live_*/_doc/0
+{
+    "filter":{
+        "term":{"_id": "425d3f4a-eb6f-4d70-99f1-ab8f5c866a6e"}
+    }
+}
+
+
+GET device_report_data_live_1/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+#b9f37ec2-1be5-4065-9639-d47ab006c0fb
+GET device_report_data_live_7/_search
+{
+  "query": {
+    "match": {
+      "report_header.device_id":"860871055221892"
+    }
+  }
+}
+
+
+
+
+GET device_report_data_live_4/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "bool": {
+            "must": [
+              {
+                "exists": {
+                  "field": "cargo_camera_sensor"
+                }
+              },
+              {
+                "range": {
+                  "general_mask_fields.received_time_stamp": {
+                    "gte": "2022-12-19 00:00:00.000000000",
+                    "lte": "2022-12-20 00:00:00.000000000"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "size": 100,
+  "stored_fields": ["_id, general_mask_fields.received_time_stamp"],
+  "sort": [
+    {
+      "general_mask_fields.received_time_stamp": "asc"
+    }
+  ]
+}
+
+GET device_report_data_live_4/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "bool": {
+            "must": [
+              {
+                "exists": {
+                  "field": "cargo_camera_sensor"
+                }
+              },
+              {
+                "range": {
+                  "general_mask_fields.received_time_stamp": {
+                    "gte": "2022-12-17 00:00:00.000000000",
+                    "lte": "2022-12-19 00:00:00.000000000"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "size": 10000,
+  "sort": [
+    {
+      "general_mask_fields.received_time_stamp.keyword": "asc"
+    }
+  ]
+}
+
+GET device_report_data_live_7/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "bool": {
+            "must": [
+              {
+                "exists": {
+                  "field": "cargo_camera_sensor"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "size": 10000,
+  "sort": {
+    "general_mask_fields.received_time_stamp": "asc"
+  }
+}
+
+GET device_report_data_live_8/_count
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "bool": {
+            "must": [
+              {
+                "exists": {
+                  "field": "cargo_camera_sensor"
+                }
+              },
+              {
+                "range": {
+                  "general_mask_fields.received_time_stamp": {
+                   "gte": "2022-04-07 00:00:00.000000000",
+                    "lte": "2022-04-13 00:00:00.000000000"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET device_report_data_live_4/_search
+{
+  "query": {
+    "match": {
+      "cargo_camera_sensor.uri":"http://images.phillips-connect.net/UZqN8c2fbN.jpg" 
+    }
+  }
+}
+
+GET device_report_data_live_4/_search
+{
+  "query": {
+    "terms": {
+      "_id": [
+        "da424c29-bf22-4ec7-baf4-2e6c9432fb90"
+      ],
+      "boost": 1
+    }
+  }
+}
+
+POST /device_report_data_live_4/_update_by_query
+{
+  "script": {
+    "source": "ctx._source.cargo_camera_sensor.state=params.newValue2;",
+    "params": {
+      "newValue2" :"Empty"
+    }, 
+    "lang": "painless"
+  },
+  "query": {
+    "terms": {
+      "_id": [
+        "da424c29-bf22-4ec7-baf4-2e6c9432fb90"
+      ],
+      "boost": 1
+    }
+  }
+}
+
+GET device_report_*/_search
+{
+  "size": 1,
+  "query": {
+    "match": {
+      "report_header.device_id": {
+        "query": "861836057934940",
+        "operator": "OR",
+        "prefix_length": 0,
+        "max_expansions": 50,
+        "fuzzy_transpositions": true,
+        "lenient": false,
+        "zero_terms_query": "NONE",
+        "auto_generate_synonyms_phrase_query": true,
+        "boost": 1
+      }
+    }
+  },
+  "sort": [
+    {
+      "general_mask_fields.received_time_stamp": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+
+
+
+GET device_report_data_live_7/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "bool": {
+            "must": [
+              {
+                "exists": {
+                  "field": "cargo_camera_sensor"
+                }
+              },
+              {
+                "range": {
+                  "general_mask_fields.received_time_stamp": {
+                    "gte": "2023-04-14 00:00:00.000000000",
+                    "lte": "2023-04-15 00:00:00.000000000"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "size": 100,
+  
+  "sort": [
+    {
+      "general_mask_fields.received_time_stamp.keyword": "desc"
+    }
+  ]
+}
+
+
+GET device_report_data_live_*/_search
+{
+  "from": 0,
+  "size": 100,
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "report_header.device_id": {
+              "query": "866961063953034",
+              "operator": "OR",
+              "prefix_length": 0,
+              "max_expansions": 50,
+              "fuzzy_transpositions": true,
+              "lenient": false,
+              "zero_terms_query": "NONE",
+              "auto_generate_synonyms_phrase_query": true,
+              "boost": 1
+            }
+          }
+        },
+        {
+          "range": {
+            "general_mask_fields.received_time_stamp": {
+              "from": "2023-03-20 18:20:00.000000000",
+              "to": "2023-04-20 23:59:59.000000000",
+              "include_lower": false,
+              "include_upper": true,
+              "boost": 1
+            }
+          }
+        }
+      ],
+      "adjust_pure_negative": true,
+      "boost": 1
+    }
+  },
+  "sort": [
+    {
+      "general_mask_fields.received_time_stamp": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+
+GET device_report_data_live_*/_search
+{
+  "query": {
+    "match": {
+      "report_header.device_id":"866961063953034"
+    }
+  },
+  "sort": [
+    {
+      "general_mask_fields.received_time_stamp": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+
+
+GET device_report_data_live_*/_search
+{
+  "from": 0,
+  "size": 500,
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "report_header.device_id": {
+              "query": "866961063953034",
+              "operator": "OR",
+              "prefix_length": 0,
+              "max_expansions": 50,
+              "fuzzy_transpositions": true,
+              "lenient": false,
+              "zero_terms_query": "NONE",
+              "auto_generate_synonyms_phrase_query": true,
+              "boost": 1
+            }
+          }
+        },
+        {
+         "match": {
+            "report_header.event_id": {
+              "query": "1564",
+              "operator": "OR",
+              "prefix_length": 0,
+              "max_expansions": 50,
+              "fuzzy_transpositions": true,
+              "lenient": false,
+              "zero_terms_query": "NONE",
+              "auto_generate_synonyms_phrase_query": true,
+              "boost": 1
+            }
+          } 
+        },
+        {
+          "range": {
+            "general_mask_fields.received_time_stamp": {
+              "from": "2023-04-13 00:00:00.000000000",
+              "to": "2023-04-21 00:00:00.000000000",
+              "include_lower": false,
+              "include_upper": true,
+              "boost": 1
+            }
+          }
+        }
+      ],
+      "adjust_pure_negative": true,
+      "boost": 1
+    }
+  },
+  "sort": [
+    {
+      "general_mask_fields.received_time_stamp": {
+        "order": "desc"
+      }
+    }
+  ]
+}

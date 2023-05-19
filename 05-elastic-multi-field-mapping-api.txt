@@ -1,0 +1,85 @@
+
+PUT temp-multi-feild/_mapping
+{
+  "properties": {
+    "description": {
+      "type": "text"
+    },
+    "ingredients": {
+      "type": "text",
+      "fields": {
+        "keyword": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}
+======================================================================================================================================================================
+
+POST temp-multi-feild/_doc/123
+{
+  "description": "To make this spaghetti carbonara, you first need to...",
+  "ingredients": [
+    "Spaghetti",
+    "Bacon",
+    "Eggs"
+   ]
+}
+
+POST temp-multi-feild/_doc/456
+{
+  "description": "To  spaghetti carbonara, you need to...",
+  "ingredients": [
+    "spaghetti",
+    "Bacon",
+    "Eggs"
+  ]
+}
+======================================================================================================================================================================
+
+GET temp-multi-feild/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+will return all above 2 docs
+======================================================================================================================================================================
+
+GET temp-multi-feild/_search
+{
+  "query": {
+    "match": {
+      "ingredients": "Spaghetti"
+    }
+  }
+}
+
+will return all above 2 docs
+======================================================================================================================================================================
+
+GET temp-multi-feild/_search
+{
+  "query": {
+    "match": {
+      "ingredients.keyword": "spaghetti"
+    }
+  }
+}
+
+will return only doc with id 456 as we have used keyword mapping
+======================================================================================================================================================================
+
+GET temp-multi-feild/_search
+{
+  "query": {
+    "match": {
+      "ingredients.keyword": "Spaghetti"
+    }
+  }
+}
+
+will return only doc with id 123 as we have used keyword mapping
+======================================================================================================================================================================

@@ -1,0 +1,244 @@
+==================================================================================================================================================================  
+
+#checking cluster-health
+GET /_cluster/health
+
+==================================================================================================================================================================
+
+#checking nodes
+GET /_cat/nodes
+
+==================================================================================================================================================================
+
+#checking index
+GET /_cat/indices?v&expand_wildcards=all
+
+==================================================================================================================================================================
+
+#checking shards
+GET /_cat/shards?v
+
+==================================================================================================================================================================
+
+#creating index
+PUT /[index-name]
+
+==================================================================================================================================================================
+
+#creating settings on index
+PUT /[index-name]
+{
+  "settings": {
+    "number_of_shards": 2,
+    "number_of_replicas": 2
+  }
+}
+
+==================================================================================================================================================================
+
+#get settings
+GET /[index-name]/_settings
+
+==================================================================================================================================================================
+
+#get mappings
+GET /[index-name]/_mapping
+
+==================================================================================================================================================================
+
+#creating document in index
+POST /[index-name]/_doc
+{
+  "name" : "coffe maker",
+  "price" : 64,
+  "in_stock" : 1
+}
+
+==================================================================================================================================================================
+
+#creating document in index with id
+POST /[index-name]/_doc/[id]
+{
+  "name" : "coffe maker",
+  "price" : 64,
+  "in_stock" : 1
+}
+
+NOTE : If id exist then it will update the doc
+
+==================================================================================================================================================================
+
+#updating document in index with id
+PUT /[index-name]/_doc/[id]
+{
+  "name" : "coffe maker",
+  "price" : 64,
+  "in_stock" : 1
+}
+
+NOTE : If id dont't exist then it will create the doc
+
+==================================================================================================================================================================
+
+#getting docs from index
+GET /[index-name]/_search
+
+==================================================================================================================================================================
+
+#getting docs from index by id
+GET /[index-name]/_doc/[id]
+
+==================================================================================================================================================================
+
+#adding new fieldNames or updating existing fieldNames to existing doc in index with id
+POST /[index-name]/_update/[id]
+{
+  "doc": {
+    "newFieldName" : "value"
+  }
+}
+
+POST /[index-name]/_update/[id]
+{
+  "doc": {
+    "existingFieldName" : "newValue"
+  }
+}
+
+NOTE : If id dont't exist then it will throw exception
+
+==================================================================================================================================================================
+
+#update through script
+POST /[index-name]/_update/[id]
+{
+  "script": {
+    "source": "ctx._source.fieldName=params.newValue",
+    "params": {
+      "newValue" : "temp"
+    }
+  }
+}
+
+==================================================================================================================================================================
+
+#delete doc
+DELETE /[index-name]/[id]
+
+==================================================================================================================================================================
+
+#delete index
+DELETE /[index-name]
+
+==================================================================================================================================================================
+
+#update value for all docs in index
+POST /[index-name]/_update_by_query
+{
+  "script": {
+    "source": "ctx._source.fieldName=params.newValue",
+    "params": {
+      "newValue" :101
+    }, 
+    "lang": "painless"
+  },
+  "query": {
+    "match_all": {}
+  }
+}
+
+==================================================================================================================================================================
+
+#update value for particular docs whose id is 102 in index
+POST /[index-name]/_update_by_query
+{
+  "script": {
+    "source": "ctx._source.fieldName=params.newValue",
+    "params": {
+      "newValue" :101
+    }, 
+    "lang": "painless"
+  },
+  "query": {
+   "match": {
+      "_id": "102"
+    }
+  }
+}
+==================================================================================================================================================================
+
+#update multiple field value's for particular docs whose id is 102 in index
+POST /[index-name]/_update_by_query
+{
+  "query": {
+    "bool": {
+      "filter": {
+        "terms": {
+          "_id": [
+           102
+          ]
+        }
+      }
+    }
+  },
+  "script": {
+    "inline": "ctx._source.fieldName1='Fully LOADED'; ctx._source.fieldName2= '91%'; ctx._source.fieldName3= '60%';",
+    "lang": "painless"
+  }
+}
+
+==================================================================================================================================================================
+
+#remove feild from doc
+POST /[index-name]/_update_by_query?conflicts=proceed
+{
+  "script": {
+    "inline": "ctx._source.remove('nameOfFieldToRemove')",
+    "lang": "painless"
+  },
+  "query": {
+    "exists": {
+      "field": "nameOfFieldToRemove"
+    }
+  }
+}
+
+==================================================================================================================================================================
+
+#delete particular docs whose id is 102 in index
+POST /[index-name]/_delete_by_query
+{
+  "query": {
+    "match": {
+      "_id": "101"
+    }
+  }
+}
+
+==================================================================================================================================================================
+
+#delete all docs from index
+POST /[index-name]/_delete_by_query
+{
+   "query": {
+    "match_all": {}
+  }
+}
+
+==================================================================================================================================================================
+
+#bulk index,create,update,delete
+POST /[index-name]/_bulk
+{"index":{"_id":202}}
+{"name":"Sandwitch M/C","price":239,"in_stock":2}
+{"create":{"_id":203}}
+{"name":"Toast M/C","price":239,"in_stock":1}
+{"update":{"_id":203}}
+{"doc":{"in_stock":2}}
+{"delete":{"_id":203}}
+
+==================================================================================================================================================================
+
+curl -H "Content-Type: application/x-ndjson" -XPOST https://localhost:9200/products/_bulk --data-binary "@products-bulk.json" -k -u elastic
+curl -H "Content-Type: application/x-ndjson" -XPOST https://localhost:9200/recipe/_bulk --data-binary "@test-data.json" -k -u elastic
+curl -H "Content-Type: application/x-ndjson" -XPOST https://localhost:9200/orders/_bulk --data-binary "@orders-bulk.json" -k -u elastic

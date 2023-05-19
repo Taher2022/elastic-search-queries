@@ -1,0 +1,24 @@
+#filtering results
+GET products/_search?size=10
+{
+  "_source": false, 
+  "query": {
+    "match": {
+      "description": "nulla"
+    }
+  }
+}
+
+GET products/_search
+{
+  "size":10,
+  "_source": false, 
+  "query": {
+    "match": {
+      "description": "nulla"
+    }
+  }
+}
+
+both query above produce same results
+======================================================================================================================================================================

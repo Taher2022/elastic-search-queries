@@ -1,0 +1,106 @@
+#re-index
+POST /_reindex
+{
+  "source": {
+    "index": "[index-name]"
+  },
+  "dest": {
+    "index": "[index-name]"
+  }
+}
+======================================================================================================================================================================
+
+POST _reindex
+{
+  "source": {
+    "index": "[index-name]"
+  },
+  "dest": {
+    "index": "[index-name]"
+  },
+  "script": {
+    "source": """
+      if(ctx._source.address.pincode != null) {
+        ctx._source.address.pincode = ctx._source.address.pincode.toString();
+      }
+    """
+  }
+}
+======================================================================================================================================================================
+
+POST _reindex
+{
+  "source": {
+    "index": "[index-name]",
+    "query": {
+      "match": {
+        "fieldName": "value"
+      }
+    }
+  },
+  "dest": {
+    "index": "[index-name]"
+  },
+  "script": {
+    "source": """
+      if(ctx._source.address.pincode != null) {
+        ctx._source.address.pincode = ctx._source.address.pincode.toString();
+      }
+    """
+  }
+}
+======================================================================================================================================================================
+
+POST _reindex
+{
+  "source": {
+    "index": "[index-name]",
+    "_source" : ["name","age","status","address","department"]  // this fieldName's will be included in source index
+  },
+  "dest": {
+    "index": "[index-name]"
+  },
+  "script": {
+    "source": """
+      if(ctx._source.address.pincode != null) {
+        ctx._source.address.pincode = ctx._source.address.pincode.toString();
+      }
+    """
+  }
+}
+======================================================================================================================================================================
+
+POST _reindex
+{
+  "source": {
+    "index": "[index-name]",
+    "_source" : ["name","age","status","address","department"]  // this fieldName's will be included in dest index
+  },
+  "dest": {
+    "index": "[index-name]"
+  },
+  "script": {
+    "source": """    //Rename "address" fieldName to "addres"
+        ctx._source.addres = ctx._source.remove("address");
+    """
+  }
+}
+======================================================================================================================================================================
+
+POST _reindex
+{
+  "source": {
+    "index": "[index-name]"
+    
+  },
+  "dest": {
+    "index": "[index-name]"
+  },
+  "script": {
+    "source":  """
+      if(ctx._source.status == "Perm"){ // value with "Perm" of fieldName status will not be included in dest index
+        ctx.op="noop";
+      }
+    """
+  }
+}

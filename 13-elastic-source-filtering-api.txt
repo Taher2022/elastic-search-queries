@@ -1,0 +1,64 @@
+#not to include _source object
+GET recipe/_search
+{
+  "_source": false,
+  "query": {
+    "match": {
+      "ingredients.name": "kosher salt"
+    }
+  }
+}
+======================================================================================================================================================================
+
+#include particular field in _source object
+GET recipe/_search
+{
+  "_source": {
+    "includes": "ingredients.name"
+  },
+  "query": {
+    "match": {
+      "ingredients.name": "kosher salt"
+    }
+  }
+}
+
+
+GET recipe/_search
+{
+  "_source": "ingredients.name",
+  "query": {
+    "match": {
+      "ingredients.name": "kosher salt"
+    }
+  }
+}
+
+both query above produce same results
+======================================================================================================================================================================
+
+#include particular fields in _source object
+GET recipe/_search
+{
+  "_source": ["created","ingredients.*"],
+  "query": {
+    "match": {
+      "ingredients.name": "kosher salt"
+    }
+  }
+}
+======================================================================================================================================================================
+
+#include and exclude particular fields in _source object
+GET recipe/_search
+{
+  "_source": {
+    "includes": ["ingredients.*","created"],
+    "excludes": "ingredients.name"
+    },
+  "query": {
+    "match": {
+      "ingredients.name": "kosher salt"
+    }
+  }
+}

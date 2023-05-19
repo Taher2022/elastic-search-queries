@@ -1,0 +1,159 @@
+#create mappings
+PUT [index-name]
+{
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "text"
+      },
+      "age": {
+        "type": "integer"
+      },
+      "status": {
+        "type": "text"
+      },
+      "department": {
+        "properties": {
+          "name": {
+            "type": "text"
+          },
+          "code": {
+            "type": "text"
+          }
+        }
+      },
+      "address": {
+        "properties": {
+          "city": {
+            "type": "text"
+          },
+          "pincode": {
+            "type": "integer"
+          },
+          "state": {
+            "type": "text"
+          }
+        }
+      },
+      "contact": {
+        "properties": {
+          "mode": {
+            "properties": {
+              "mobile": {
+                "type": "integer"
+              },
+              "email": {
+                "type": "text"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+======================================================================================================================================================================
+
+#create mappings for existing index
+PUT [index-name]/_mapping
+{  
+    "properties": {
+      "name": {
+        "type": "text"
+      },
+      "age": {
+        "type": "integer"
+      },
+      "status": {
+        "type": "text"
+      },
+      "department": {
+        "properties": {
+          "name": {
+            "type": "text"
+          },
+          "code": {
+            "type": "text"
+          }
+        }
+      },
+      "address": {
+        "properties": {
+          "city": {
+            "type": "text"
+          },
+          "pincode": {
+            "type": "integer"
+          },
+          "state": {
+            "type": "text"
+          }
+        }
+      },
+      "contact": {
+        "properties": {
+          "mode": {
+            "properties": {
+              "mobile": {
+                "type": "integer"
+              },
+              "email": {
+                "type": "text"
+              }
+            }
+          }
+        }
+      }
+    }
+}
+======================================================================================================================================================================
+
+#get mappings
+GET [index-name]/_mapping
+
+======================================================================================================================================================================
+
+#create doc
+POST [index-name]/_doc/123
+{
+  "name": "Taher Ali",
+  "status": "Perm",
+  "age": 30,
+  "department": {
+    "name": "Comp Sci",
+    "code": "CS-102"
+  },
+  "address": {
+    "city": "Indore",
+    "pincode": "456789",
+    "state": "MP"
+  },
+  "contact": {
+    "mode": [
+      {
+        "email": [
+          "test@tst.com"
+        ],
+        "mobile": 98976534
+      },
+      {
+        "email": "pest@tst.com",
+        "mobile": 93476534
+      }
+    ]
+  }
+}
+======================================================================================================================================================================
+
+#add mappings to existing index
+PUT [index-name]/_mapping
+{
+  "properties": {
+    "created-date": {
+      "type": "date"
+    }
+  }
+}
+======================================================================================================================================================================
+
+Note : We cant update mappings once created

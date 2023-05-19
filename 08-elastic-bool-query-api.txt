@@ -1,0 +1,88 @@
+GET recipe/_search
+
+#bool query
+GET recipe/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "ingredients.name": "parmesan"
+          }
+        }
+      ], "should": [
+        {
+          "match": {
+            "ingredients.name": "Kosher"
+          }
+        }
+      ],"filter": [
+        {
+          "range": {
+            "preparation_time_minutes": {
+              "lte": 15
+            }
+          }
+        }
+      ],"must_not": [
+        {
+          "match": {
+            "ingredients.name": "Dry pasta"
+          }
+        }
+      ]
+    }
+  }
+}
+======================================================================================================================================================================
+
+#debug bool query
+GET recipe/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "ingredients.name": {
+              "query": "parmesan",
+              "_name": "parmesan_must"
+            }
+          }
+        }
+      ],
+      "must_not": [
+        {
+          "match": {
+            "ingredients.name": {
+              "query": "tuna",
+              "_name": "tuna_must_not"
+            }
+          }
+        }
+      ],
+      "should": [
+        {
+          "match": {
+            "ingredients.name": {
+              "query": "parsley",
+              "_name": "parsley_should"
+            }
+          }
+        }
+      ],
+      "filter": [
+        {
+          "range": {
+            "preparation_time_minutes": {
+              "lte": 15,
+              "_name": "prep_time_filter"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+======================================================================================================================================================================
